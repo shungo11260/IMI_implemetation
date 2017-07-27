@@ -52,7 +52,7 @@ def update_input_one_step(input_data, weight, threshold):
 
     return x.reshape((5,5))
 
-def update(train_data, input_data, weight, threshold, update_num, limit_count):
+def update(input_data, weight, threshold, update_num, limit_count):
     V_old = [[0.0]]
     count = 0
     for i in range(update_num):

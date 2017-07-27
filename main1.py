@@ -31,7 +31,7 @@ if __name__=="__main__":
                 real_noise_per += 1.0
     real_noise_per /= 25.0
 
-    hf.update(train_data=t.train_data1, input_data=input1_1, weight=W, threshold=theta, update_num=1000, limit_count=50)
+    hf.update(input_data=input1_1, weight=W, threshold=theta, update_num=1000, limit_count=50)
 
     # calculate right component percentage
     for i in range(input1_0.shape[0]):

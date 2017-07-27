@@ -7,8 +7,10 @@ import copy
 
 td_num = 6
 theta = np.zeros((25,1))
-noise_percentage = 0.24
-times = 10000
+noise_percentage = 0.0
+times = 1
+update_num = 10000
+limit_count = 25
 
 if __name__=="__main__":
 
@@ -38,7 +40,7 @@ if __name__=="__main__":
                     real_noise_per[k] += 1.0
         real_noise_per[k] /= 25.0
 
-        hf.update(train_data=t.train_data1, input_data=input1_1, weight=W, threshold=theta, update_num=10000, limit_count=250)
+        hf.update(input_data=input1_1, weight=W, threshold=theta, update_num=update_num, limit_count=limit_count)
 
         # calculate right component percentage
         for i in range(input1_0.shape[0]):
