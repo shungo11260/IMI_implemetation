@@ -42,12 +42,12 @@ def update(train_data, input_data, weight, threshold, update_num, limit_count):
     count = 0
     for i in range(update_num):
         in_da = update_input_one_step(input_data, weight, threshold)
-        if lyapunov_function(train_data, weight, threshold) == V_old:
+        if lyapunov_function(in_da, weight, threshold) == V_old:
             print(i)
-            print(lyapunov_function(train_data, weight, threshold))
+            print(lyapunov_function(in_da, weight, threshold))
             count += 1
             if count == limit_count:
-                count = 0
+                print("the update_num:"+str(i-count))
                 break
         else:
             print(i)
