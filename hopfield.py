@@ -19,10 +19,25 @@ def update_weight(weight, data, n):
 def add_noise2td(train_data, percentage):
     per = round(percentage*train_data.size)
     data = train_data.reshape((train_data.size, 1))
+    count = []
+
     for k in range(per):
         n = random.randrange(0, 25)
-        data[n] = random.randrange(-1, 2, 2)
+        if n not in count:
+            count.append(n)
+            #data[n] = random.randrange(-1, 2, 2)
+            data[n] = -data[n]
+            #print(n)
+        else :
+            while n in count:
+                #print("same number",n)
+                n = random.randrange(0, 25)
+            #print(n)
+            count.append(n)
+            data[n] = -data[n]
+
     data = data.reshape((train_data.shape[0], train_data.shape[1]))
+
     return data
 
 def lyapunov_function(input_data, weight, threshold):
@@ -43,17 +58,17 @@ def update(train_data, input_data, weight, threshold, update_num, limit_count):
     for i in range(update_num):
         in_da = update_input_one_step(input_data, weight, threshold)
         if lyapunov_function(in_da, weight, threshold) == V_old:
-            print(i)
-            print(lyapunov_function(in_da, weight, threshold))
+            #print(i)
+            #print(lyapunov_function(in_da, weight, threshold))
             count += 1
             if count == limit_count:
-                print("the update_num:"+str(i-count))
+                #print("the update_num:"+str(i-count))
                 break
         else:
-            print(i)
+            #print(i)
             count = 0
-            plt.figure(i)
+            #plt.figure(i)
             V_old = lyapunov_function(in_da, weight, threshold)
-            print(V_old)
-            plt.imshow(in_da, interpolation='nearest', cmap='bone')
-    plt.show()
+            #print(V_old)
+            #plt.imshow(in_da, interpolation='nearest', cmap='bone')
+    #plt.show()
