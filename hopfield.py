@@ -1,4 +1,6 @@
 import numpy as np
+import random
+import matplotlib.pyplot as plt
 
 def init_weight(data):
         weight = np.ones((data[0].size, data[0].size))
@@ -35,13 +37,21 @@ def update_input_one_step(input_data, weight, threshold):
 
     return x.reshape((5,5))
 
-def update(input_data, weight, threshold, update_num):
+def update(train_data, input_data, weight, threshold, update_num, limit_count):
     V_old = [[0.0]]
+    count = 0
     for i in range(update_num):
         in_da = update_input_one_step(input_data, weight, threshold)
-        if lyapunov_function(in_da, weight, threshold) == V_old:
-            break
+        if lyapunov_function(train_data, weight, threshold) == V_old:
+            print(i)
+            print(lyapunov_function(train_data, weight, threshold))
+            count += 1
+            if count == limit_count:
+                count = 0
+                break
         else:
+            print(i)
+            count = 0
             plt.figure(i)
             V_old = lyapunov_function(in_da, weight, threshold)
             print(V_old)
